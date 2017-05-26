@@ -1,6 +1,8 @@
-# envisionbasic README
+# Envision Basic README
 
-This is the README for your extension "envisionbasic". After writing up a brief description, we recommend including the following sections.
+Language support for UniBasic with Envision extensions by [Ellucian](http://www.ellucian.com/Software/Colleague-by-Ellucian/).  
+
+Based on the TextMate definition for Rocketsoft UniBasic created by [Devon McCarty](https://github.com/mrdevon/RocketUnidata)
 
 ## Features
 
@@ -14,38 +16,21 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+None
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+None
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Not colorizing many statements
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of Envision Basic
 
 -----------------------------------------------------------------------------------------------------------
 
