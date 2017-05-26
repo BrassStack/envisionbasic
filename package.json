@@ -1,0 +1,26 @@
+{
+    "name": "envisionbasic",
+    "displayName": "Envision Basic Language Support",
+    "description": "Unibasic language support with Envision extensions by Ellucian",
+    "version": "0.0.1",
+    "publisher": "konradwillmert",
+    "engines": {
+        "vscode": "^1.12.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "eb",
+            "aliases": ["Envision Basic", "eb"],
+            "extensions": [".ub",".eb"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "eb",
+            "scopeName": "source.envisionbasic",
+            "path": "./syntaxes/eb.tmLanguage"
+        }]
+    }
+}
