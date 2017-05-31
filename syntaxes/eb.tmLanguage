@@ -15,6 +15,22 @@
 		<array>
 			<dict>
 				<key>include</key>
+				<string>#comments</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#strings</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#labelStatement</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#numericLiterals</string>
+			</dict>
+			<dict>
+				<key>include</key>
 				<string>#callStatement</string>
 			</dict>
 			<dict>
@@ -23,27 +39,11 @@
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#labelStatement</string>
-			</dict>
-			<dict>
-				<key>include</key>
 				<string>#multiValueVariableStatement</string>
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#numericLiterals</string>
-			</dict>
-			<dict>
-				<key>include</key>
 				<string>#basicStatements</string>
-			</dict>
-			<dict>
-				<key>include</key>
-				<string>#comments</string>
-			</dict>
-			<dict>
-				<key>include</key>
-				<string>#strings</string>
 			</dict>
 		</array>
 		<key>repository</key>
@@ -227,7 +227,7 @@
 						<key>comment</key>
 						<string>Control keywords</string>
 						<key>match</key>
-						<string>\b(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END|END_THE|END_EACH|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR|FOR_THE|FOR_EACH|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)\b</string>
+						<string>\b(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END(_\w+)?|GOSUB|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR|FOR_THE|FOR_EACH|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)\b</string>
 						<key>name</key>
 						<string>keyword.control.envisionbasic</string>
 					</dict>
@@ -276,7 +276,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>(;|^)\s*(((REM\s+|\*\s*)|[!*]).*)</string>
+						<string>(;?\s*((REM\s+|\*\s*).*))</string>
 						<key>name</key>
 						<string>comment.line.envisionbasic</string>
 					</dict>
