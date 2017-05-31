@@ -1,26 +1,42 @@
 {
-    "name": "envisionbasic",
-    "displayName": "Envision Basic Language Support",
-    "description": "Unibasic language support with Envision extensions by Ellucian",
-    "version": "0.0.1",
-    "publisher": "konradwillmert",
-    "engines": {
-        "vscode": "^1.12.0"
-    },
-    "categories": [
-        "Languages"
+  "name": "envisionbasic",
+  "displayName": "Envision Basic Language Support",
+  "description": "Unibasic language support with Envision extensions by Ellucian",
+  "version": "0.0.1",
+  "publisher": "konradwillmert",
+  "engines": {
+    "vscode": "^1.12.0"
+  },
+  "categories": [
+    "Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "eb",
+        "aliases": [
+          "Envision Basic",
+          "eb"
+        ],
+        "extensions": [
+          ".ub",
+          ".eb",
+          ".ebl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
     ],
-    "contributes": {
-        "languages": [{
-            "id": "eb",
-            "aliases": ["Envision Basic", "eb"],
-            "extensions": [".ub",".eb",".ebl"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "eb",
-            "scopeName": "source.envisionbasic",
-            "path": "./syntaxes/eb.tmLanguage"
-        }]
-    }
+    "grammars": [
+      {
+        "language": "eb",
+        "scopeName": "source.envisionbasic",
+        "path": "./syntaxes/eb.tmLanguage"
+      }
+    ]
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-convert": "^0.2.0",
+    "gulp-ext-replace": "^0.3.0"
+  }
 }

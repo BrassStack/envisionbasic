@@ -1,0 +1,133 @@
+name: envisionbasic
+scopeName: source.envisionbasic
+uuid: a101079f-93fe-4240-8f8a-1a6d498900de
+patterns:
+    -
+        include: '#comments'
+    -
+        include: '#strings'
+    -
+        include: '#labelStatement'
+    -
+        include: '#numericLiterals'
+    -
+        include: '#callStatement'
+    -
+        include: '#subroutineStatement'
+    -
+        include: '#multiValueVariableStatement'
+    -
+        include: '#basicStatements'
+repository:
+    multiValueVariableStatement:
+        patterns:
+            -
+                begin: '\b(?<!\.)([A-Za-z_\.][A-Za-z0-9_\.]*)(<)'
+                end: '(>)'
+                patterns:
+                    - {include: $self}
+    labelStatement:
+        patterns:
+            -
+                match: '^([A-Za-z_\.][A-Za-z0-9_\.]*)(?=\:\s*(;|$))'
+                captures:
+                    '1': {name: 'entity.name.function.envisionbasic meta.function.envisionbasic'}
+                    '3': {name: comment.line.envisionbasic}
+    subroutineStatement:
+        patterns:
+            -
+                begin: '\b(?<!\.)(SUBROUTINE)\s'
+                beginCaptures:
+                    '1': {name: keyword.control.envisionbasic}
+                end: '(\;|$)'
+                patterns:
+                    - {include: '#functionStatement'}
+    callStatement:
+        patterns:
+            -
+                begin: '\b(?<!\.)(CALL(C|_SUBR|_PROCESS|_SCREEN)?)\s'
+                beginCaptures:
+                    '1': {name: keyword.control.envisionbasic}
+                end: '(\;|$)'
+                patterns:
+                    - {include: '#functionStatement'}
+    functionStatement:
+        patterns:
+            -
+                begin: '(?<!\.)([A-Za-z_\.][A-Za-z0-9_\.]*)(\()'
+                beginCaptures:
+                    '1': {name: support.function.envisionbasic}
+                end: '(\))'
+                patterns:
+                    - {include: $self}
+    basicStatements:
+        patterns:
+            -
+                comment: 'Assignment operators (spaces optional)'
+                match: '(\*|/|-|\+|:|<|>)?='
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Arithmetic operators (spaces optional)'
+                match: '(\^|\*(\*)?|/|:|\+|-)'
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Logic operators (spaces optional)'
+                match: '(!|&|\#(<|>)?|<(=|>)?|>(<|=)?)'
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Logic operators (spaces preferred before and after)'
+                match: '\s(AND|CAT|EQ|GE|GT|LE|LT|MATCH|MATCHES|NE|OR)\s'
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Some compile-time constants'
+                match: '(@(A|F|V|S|R|T|SV|I)M|@(TRUE|FALSE|NULL)|\$(T(RUE)?|F(ALSE)?))\b'
+                name: constant.language.envisionbasic
+            -
+                comment: 'Some compile-time control flow'
+                match: '\$(BASICTYPE|(UN)?DEFINE|ELSE|ENDIF|IF(N)?DEF|INCLUDE|INSERT|(INPUT|EDITED|OUTPUT).DATA)'
+                name: keyword.control.envisionbasic
+            -
+                comment: 'Control keywords'
+                match: '\b(?<!\.)(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END(_\w+)?|GOSUB|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR(_\w+)|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)(?!\.)\b'
+                name: keyword.control.envisionbasic
+            -
+                match: '(@(ACCOUNT|COMMAND|CONV|CRT(HIGH|WIDE)|DATA|DATE|DAY|DICT|FORMAT|GID|HEADER|ID|LASTVERB|LEVEL|LOGNAME|LPTR(HIGH|WIDE)|MONTH|PARASENTENCE|PATH|PROCTYPE|RECORD|RECUR(0|1|2|3|4)|SENTENCE|SYS.BELL|SYSTEM.RETURN.CODE|TIME|TRANSACTION|TTY|TUPLE|UDTNO|UID|USER(0|1|2|3|4|NO|\.TYPE|\.RETURN\.CODE)|WHO|YEAR))(?!\.)'
+                name: constant.language.envisionbasic
+            -
+                comment: 'Support functions'
+                begin: '(?<!\.)(@|PROCEDURE|CHAIN_SCREEN|TRANSLATE|REPROMPT|PROMPT_(WIDE|IN_PLACE)?|CDD|IGNORE|VALIDAT(E|ION)?|THROW_ERROR|SHOW(A|C)?|SET_SECURITY|ERROR_IF|COPY_LOGICAL|ABS|acceptConnection|addAuthenticationRule|addCertificate|addRequestParameter|ALPHA|am(Initialize|ReceiveMsg|ReceiveRequest|SendMsg|SendRequest|SendResponse|Terminate)|analyzeCertificate|ASCII|(A)?SIN|(A)?TAN|(A)?COS|BIT(AND|NOT|OR|XOR)|BYTELEN|CALCULATE|CATS|CHANGE|CHAR(LEN|S)?|CHECKSUM|closeSocket|CloseXMLData|COL(1|2)|CONVERT|COUNT(S)?|create(Certificate|CertRequest|Request|SecureRequest|SecurityContext)|DATE|DBTOXML|DCOUNT|DELETE|DIGEST|DIR|DISPLAYWIDTH|DOWNCASE|(D|S)?QUOTE|DROUND|EBCDIC|EDADRV_(Cleanup|CloseStmt|Connect|Disconnect|DropStmt|EndTransaction|ExecuteStmt|FetchStmt|FreeResult|GetDBInfo|GetErrmsg|GetSpecialInfo|LoadSymbols|Perform|PrepareStmt)|ENABLEDEC|ENCODE|ENCRYPT|EQS|EREPLACE|EXP|EXTRACT|FIELD(STORE)?|FILEINFO|FMT|generateKey|GES|GET(ENV|PTR|PU|QUEUE|READU|USERGROUP|USERID|USERNAME)|get(CipherSuite|HTTPDefault|ResponseHeader|SocketInformation|SocketOptions)|GROUP|GTS|HASH|ICONV(S)?|init(Secure)?ServerSocket|IN|INDEX|INDICES|INMAT|INSERT|INT|ISMB|ISNV(S)?|ITYPE|LEN(S)?|LES|LISTUSER|LN|loadSecurityContext|LOCATE|LOWER|LTS|MATCHFIELD|MAXIMUM|MBLEN|MINIMUM|MOD|NEG|NES|NFAUSER|NOT(S)?|NUM(S)?|OCONV(S)?|open(Secure)?Socket|OpenXMLData|PrepareXML|protocolLogging|PWR|RAISE|readSocket|ReadXMLData|RECORDLOCKED|ReleaseXML|REM|REMOVE|REPLACE|REUSE|RND|SADD|saveSecurityContext|SCMP|SDIV|SELECTINFO|SEQ(S)?|SETENV|set(AuthenticationDepth|CipherSuite|ClientAuthentication|HTTPDefault|PrivateKey|RandomSeed|RequestHeader|SocketOptions)|showSecurityContext|SIGNATURE|SMUL|SOAP(Create(Secure)?Request|GetDefault|GetFault|GetResponseHeader|RequestWrite|SetParameters|SetRequestBody|SetRequestContent|SetRequestHeader|SubmitRequest)|SORT|SOUNDEX|SPACE(S)?|SPLICE|SQL(AllocConnect|AllocEnv|AllocStmt|BindCol|BindParameter|Cancel|ColAttributes|Columns|Connect|DescribeCol|Disconnect|Error|ExecDirect|Execute|Fetch|FreeConnect|FreeEnv|FreeStmt|GetInfo|GetTypeInfo|NumParams|NumResultCols|ParamOptions|Prepare|RowCount|SetConnectOption|SetParam|SpecialColumns|Statistics|Tables|Transact)|SQRT|SSUB|STATUS|STR(S)?|submitRequest|SUBSTRINGS|SUM|SYSTEM|TIME(DATE)?|TRIM(B|F|S)?|UNASSIGNED|UNIT|UPCASE|writeSocket|XDOM(AddChild|Append|Clone|Close|CreateNode|CreateRoot|Evaluate|GetAttribute|GetNodeName|GetNodeType|GetNodeValue|GetOwnerDocument|GetUserData|Insert|Locate|LocateNode|Open|Remove|Replace|SetNodeValue|SetUserData|Transform|Validate(Dom)?|Write)|XLATE|XMAP(Close|Create|Open|ReadNext|ToXMLDoc)|XML(Error|Execute|Get(Error|Option(s|Value))|SetOptions|TODB))(?:\()'
+                beginCaptures:
+                    '1': {name: support.function.envisionbasic}
+                end: '(\))'
+                patterns:
+                    - {include: $self}
+            -
+                comment: 'Other keywords'
+                match: '\b(?<!\.)(ABSOLUTE|(DE)?ACTIVATEKEY|ALL|(FIRST|LAST|NULLVAL)_ALT_KEY|SELECTED|REFERENCED|DEFER_COMMIT|INTO|INTO_REFERENCED|ASSOCIATED|DELETING|NEW|EXISTING|SINGLE|COMMIT(|TING)?|WRITING|DELETING|RELEASING|TESTING|APPEND|AS|ASSIGN|ASYNC|AT|BEFORE|BPIOCP|BPIOCPN|BREAK|BUFFER.KEYS|BY|CALLING|CAPTURING|CHAIN|CLEAR(COM|COMMON|DATA|FILE|INPUT|SELECT|SQL)?|CLOSE(SEQ)?|COM(MON)?|COMPILE\.DICT\.ITEM|CONNECT|CONVERT|CRT|CURRENT|DATA|DEBUG|DECLARE|DEFFUN|DEL(ETE|ETELIST|ETEU)?|DICT|DIM|DIMENSION|DISABLEDEC|DISCONNECT|DISPLAY|DTX|ECHO|EQU|EQUATE|ERROR|FIELDS|FILE(UN)?LOCK|FIND(STR)?|FLUSH|FMTS|FOOTING|FORMLIST|FROM|FUNCTION|GARBAGECOLLECT|GET(COLUMN(DATA|NAME)|(ERR)?MSG|LIST|NEXTTUPLE|X)?|GROUPSTORE|HEADING|HELP|HUSH|IN|INDEXS|INPUT(CLEAR|ERR|IF|NULL|TRAP)|INS|ISOLATION|JRNL_STATUS|KEY|LENGTH|LINEMARK|LIT(ERALLY)?|LOCATE|LOCK(ED)?|MAT(BUILD|PARSE|READ(L|U)?|WRITE(U)?)?|NO(CONVERT|DELAY)|NULL|OFF|ON|OPEN(SEQ)?|OS(CLOSE|DELETE|OPEN|(B)?READ|(B)?WRITE)|PAGE|PASS(COM(MON)?|LIST)|PRECISION|PREVIOUS|PRINT(ER|ERR)?|PRIOR|PROC(READ|WRITE)|PROGRAM|READ(BCK|BCKL|BCKU|FWD|FWDL|FWDU|L|LIST|NEXT|NEXTTUPLE|ONLY|SELECT|SEQ|T|U|V|VL|VU|WRITE|XBCK|XFWD)?|RECORDLOCK(L|U)|RELATIVE|RELEASE|REMOVE|RESIZET|RETURNING|REWIND|RNDSEED|RTNLIST|SELECT(INDEX|INFO)?|SEND(X)?|SET(INDEX|MARK|ROW|TABLE|TING)|STEP|SUBROUTINE|SWAP|SYNC|TIMEOUT|TO|UNFILTERED|UNLOCK|USE|USING|VALIDATE\.KEY|VERB|WAITING|WEOF|WEOFSEQ|WITH|WRITE(LIST|ONLY|SEQ|SEQF|T|U|V|VU)?|XTD)(?!\.)\b'
+                name: keyword.other.envisionbasic
+    comments:
+        patterns:
+            -
+                match: '(?<=;|^)\s*((REM(\s+)|[!*]).*)'
+                name: comment.line.envisionbasic
+            -
+                match: '\b(?i:fixme|todo):\b'
+                name: meta.comment.fixme.envisionbasic
+    numericLiterals:
+        patterns:
+            -
+                captures:
+                    '1': {name: constant.numeric.float.envisionbasic}
+                    '2': {name: constant.numeric.float.envisionbasic}
+                match: '(\b|-)\d+(\.)(?:\d+)?'
+                name: constant.numeric.float.envisionbasic
+            -
+                captures:
+                    '0': {name: constant.numeric.integer.envisionbasic}
+                match: '(\b|-)(?<!\.)\d+\b'
+                name: constant.numeric.integer.envisionbasic
+    strings:
+        patterns:
+            -
+                match: '("([^"]|\.)*"|\''([^\'']|\.)*'')'
+                name: string.quoted
