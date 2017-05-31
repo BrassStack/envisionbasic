@@ -14,7 +14,7 @@
         "languages": [{
             "id": "eb",
             "aliases": ["Envision Basic", "eb"],
-            "extensions": [".ub",".eb"],
+            "extensions": [".ub",".eb",".ebl"],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{

@@ -2,15 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>fileTypes</key>
-		<array>
-			<string>ub</string>
-			<string>eb</string>
-		</array>
 		<key>name</key>
 		<string>envisionbasic</string>
-		<key>comment</key>
-		<string>		TODO: +1 should be a constant in some cases, not always operator and constant		TODO: subroutine arguments should be colored at the top of subroutine program	</string>
 		<key>patterns</key>
 		<array>
 			<dict>
@@ -54,7 +47,7 @@
 				<array>
 					<dict>
 						<key>begin</key>
-						<string>\b([A-Za-z_\.][A-Za-z0-9_\.]*)(&lt;)</string>
+						<string>\b(?&lt;!\.)([A-Za-z_\.][A-Za-z0-9_\.]*)(&lt;)</string>
 						<key>end</key>
 						<string>(&gt;)</string>
 						<key>patterns</key>
@@ -73,7 +66,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>^([A-Za-z_\.][A-Za-z0-9_\.]*)(\:)((;|^)\s*(((REM\s+|\*\s*)|[!*]).*)|\s*)$</string>
+						<string>^([A-Za-z_\.][A-Za-z0-9_\.]*)(?=\:\s*(;|$))</string>
 						<key>captures</key>
 						<dict>
 							<key>1</key>
@@ -150,7 +143,7 @@
 				<array>
 					<dict>
 						<key>begin</key>
-						<string>([A-Za-z_\.][A-Za-z0-9_\.]*)(\()</string>
+						<string>(?&lt;!\.)([A-Za-z_\.][A-Za-z0-9_\.]*)(\()</string>
 						<key>beginCaptures</key>
 						<dict>
 							<key>1</key>
@@ -187,7 +180,7 @@
 						<key>comment</key>
 						<string>Arithmetic operators (spaces optional)</string>
 						<key>match</key>
-						<string>(^|(?&lt;!^)\*(\*)?|/|:|\+|-)</string>
+						<string>(\^|\*(\*)?|/|:|\+|-)</string>
 						<key>name</key>
 						<string>keyword.operator.envisionbasic</string>
 					</dict>
@@ -219,7 +212,7 @@
 						<key>comment</key>
 						<string>Some compile-time control flow</string>
 						<key>match</key>
-						<string>\$(BASICTYPE|(UN)?DEFINE|ELSE|ENDIF|IF(N)?DEF|INCLUDE|INSERT|INPUT.DATA|EDITED.DATA|OUTPUT.DATA)</string>
+						<string>\$(BASICTYPE|(UN)?DEFINE|ELSE|ENDIF|IF(N)?DEF|INCLUDE|INSERT|(INPUT|EDITED|OUTPUT).DATA)</string>
 						<key>name</key>
 						<string>keyword.control.envisionbasic</string>
 					</dict>
@@ -227,7 +220,7 @@
 						<key>comment</key>
 						<string>Control keywords</string>
 						<key>match</key>
-						<string>\b(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END(_\w+)?|GOSUB|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR|FOR_THE|FOR_EACH|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)\b</string>
+						<string>\b(?&lt;!\.)(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END(_\w+)?|GOSUB|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR(_\w+)|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)(?!\.)\b</string>
 						<key>name</key>
 						<string>keyword.control.envisionbasic</string>
 					</dict>
@@ -241,7 +234,7 @@
 						<key>comment</key>
 						<string>Support functions</string>
 						<key>begin</key>
-						<string>(@|PROCEDURE|CHAIN_SCREEN|TRANSLATE|REPROMPT|PROMPT_(WIDE|IN_PLACE)?|CDD|IGNORE|VALIDAT(E|ION)?|THROW_ERROR|SHOW(A|C)?|SET_SECURITY|ERROR_IF|COPY_LOGICAL|ABS|acceptConnection|addAuthenticationRule|addCertificate|addRequestParameter|ALPHA|am(Initialize|ReceiveMsg|ReceiveRequest|SendMsg|SendRequest|SendResponse|Terminate)|analyzeCertificate|ASCII|(A)?SIN|(A)?TAN|(A)?COS|BIT(AND|NOT|OR|XOR)|BYTELEN|CALCULATE|CATS|CHANGE|CHAR(LEN|S)?|CHECKSUM|closeSocket|CloseXMLData|COL(1|2)|CONVERT|COUNT(S)?|create(Certificate|CertRequest|Request|SecureRequest|SecurityContext)|DATE|DBTOXML|DCOUNT|DELETE|DIGEST|DIR|DISPLAYWIDTH|DOWNCASE|(D|S)?QUOTE|DROUND|EBCDIC|EDADRV_(Cleanup|CloseStmt|Connect|Disconnect|DropStmt|EndTransaction|ExecuteStmt|FetchStmt|FreeResult|GetDBInfo|GetErrmsg|GetSpecialInfo|LoadSymbols|Perform|PrepareStmt)|ENABLEDEC|ENCODE|ENCRYPT|EQS|EREPLACE|EXP|EXTRACT|FIELD(STORE)?|FILEINFO|FMT|generateKey|GES|GET(ENV|PTR|PU|QUEUE|READU|USERGROUP|USERID|USERNAME)|get(CipherSuite|HTTPDefault|ResponseHeader|SocketInformation|SocketOptions)|GROUP|GTS|HASH|ICONV(S)?|init(Secure)?ServerSocket|IN|INDEX|INDICES|INMAT|INSERT|INT|ISMB|ISNV(S)?|ITYPE|LEN(S)?|LES|LISTUSER|LN|loadSecurityContext|LOCATE|LOWER|LTS|MATCHFIELD|MAXIMUM|MBLEN|MINIMUM|MOD|NEG|NES|NFAUSER|NOT(S)?|NUM(S)?|OCONV(S)?|open(Secure)?Socket|OpenXMLData|PrepareXML|protocolLogging|PWR|RAISE|readSocket|ReadXMLData|RECORDLOCKED|ReleaseXML|REMOVE|REPLACE|REUSE|RND|SADD|saveSecurityContext|SCMP|SDIV|SELECTINFO|SEQ(S)?|SETENV|set(AuthenticationDepth|CipherSuite|ClientAuthentication|HTTPDefault|PrivateKey|RandomSeed|RequestHeader|SocketOptions)|showSecurityContext|SIGNATURE|SMUL|SOAP(Create(Secure)?Request|GetDefault|GetFault|GetResponseHeader|RequestWrite|SetParameters|SetRequestBody|SetRequestContent|SetRequestHeader|SubmitRequest)|SORT|SOUNDEX|SPACE(S)?|SPLICE|SQL(AllocConnect|AllocEnv|AllocStmt|BindCol|BindParameter|Cancel|ColAttributes|Columns|Connect|DescribeCol|Disconnect|Error|ExecDirect|Execute|Fetch|FreeConnect|FreeEnv|FreeStmt|GetInfo|GetTypeInfo|NumParams|NumResultCols|ParamOptions|Prepare|RowCount|SetConnectOption|SetParam|SpecialColumns|Statistics|Tables|Transact)|SQRT|SSUB|STATUS|STR(S)?|submitRequest|SUBSTRINGS|SUM|SYSTEM|TIME(DATE)?|TRIM(B|F|S)?|UNASSIGNED|UNIT|UPCASE|writeSocket|XDOM(AddChild|Append|Clone|Close|CreateNode|CreateRoot|Evaluate|GetAttribute|GetNodeName|GetNodeType|GetNodeValue|GetOwnerDocument|GetUserData|Insert|Locate|LocateNode|Open|Remove|Replace|SetNodeValue|SetUserData|Transform|Validate(Dom)?|Write)|XLATE|XMAP(Close|Create|Open|ReadNext|ToXMLDoc)|XML(Error|Execute|Get(Error|Option(s|Value))|SetOptions|TODB))</string>
+						<string>(?&lt;!\.)(@|PROCEDURE|CHAIN_SCREEN|TRANSLATE|REPROMPT|PROMPT_(WIDE|IN_PLACE)?|CDD|IGNORE|VALIDAT(E|ION)?|THROW_ERROR|SHOW(A|C)?|SET_SECURITY|ERROR_IF|COPY_LOGICAL|ABS|acceptConnection|addAuthenticationRule|addCertificate|addRequestParameter|ALPHA|am(Initialize|ReceiveMsg|ReceiveRequest|SendMsg|SendRequest|SendResponse|Terminate)|analyzeCertificate|ASCII|(A)?SIN|(A)?TAN|(A)?COS|BIT(AND|NOT|OR|XOR)|BYTELEN|CALCULATE|CATS|CHANGE|CHAR(LEN|S)?|CHECKSUM|closeSocket|CloseXMLData|COL(1|2)|CONVERT|COUNT(S)?|create(Certificate|CertRequest|Request|SecureRequest|SecurityContext)|DATE|DBTOXML|DCOUNT|DELETE|DIGEST|DIR|DISPLAYWIDTH|DOWNCASE|(D|S)?QUOTE|DROUND|EBCDIC|EDADRV_(Cleanup|CloseStmt|Connect|Disconnect|DropStmt|EndTransaction|ExecuteStmt|FetchStmt|FreeResult|GetDBInfo|GetErrmsg|GetSpecialInfo|LoadSymbols|Perform|PrepareStmt)|ENABLEDEC|ENCODE|ENCRYPT|EQS|EREPLACE|EXP|EXTRACT|FIELD(STORE)?|FILEINFO|FMT|generateKey|GES|GET(ENV|PTR|PU|QUEUE|READU|USERGROUP|USERID|USERNAME)|get(CipherSuite|HTTPDefault|ResponseHeader|SocketInformation|SocketOptions)|GROUP|GTS|HASH|ICONV(S)?|init(Secure)?ServerSocket|IN|INDEX|INDICES|INMAT|INSERT|INT|ISMB|ISNV(S)?|ITYPE|LEN(S)?|LES|LISTUSER|LN|loadSecurityContext|LOCATE|LOWER|LTS|MATCHFIELD|MAXIMUM|MBLEN|MINIMUM|MOD|NEG|NES|NFAUSER|NOT(S)?|NUM(S)?|OCONV(S)?|open(Secure)?Socket|OpenXMLData|PrepareXML|protocolLogging|PWR|RAISE|readSocket|ReadXMLData|RECORDLOCKED|ReleaseXML|REM|REMOVE|REPLACE|REUSE|RND|SADD|saveSecurityContext|SCMP|SDIV|SELECTINFO|SEQ(S)?|SETENV|set(AuthenticationDepth|CipherSuite|ClientAuthentication|HTTPDefault|PrivateKey|RandomSeed|RequestHeader|SocketOptions)|showSecurityContext|SIGNATURE|SMUL|SOAP(Create(Secure)?Request|GetDefault|GetFault|GetResponseHeader|RequestWrite|SetParameters|SetRequestBody|SetRequestContent|SetRequestHeader|SubmitRequest)|SORT|SOUNDEX|SPACE(S)?|SPLICE|SQL(AllocConnect|AllocEnv|AllocStmt|BindCol|BindParameter|Cancel|ColAttributes|Columns|Connect|DescribeCol|Disconnect|Error|ExecDirect|Execute|Fetch|FreeConnect|FreeEnv|FreeStmt|GetInfo|GetTypeInfo|NumParams|NumResultCols|ParamOptions|Prepare|RowCount|SetConnectOption|SetParam|SpecialColumns|Statistics|Tables|Transact)|SQRT|SSUB|STATUS|STR(S)?|submitRequest|SUBSTRINGS|SUM|SYSTEM|TIME(DATE)?|TRIM(B|F|S)?|UNASSIGNED|UNIT|UPCASE|writeSocket|XDOM(AddChild|Append|Clone|Close|CreateNode|CreateRoot|Evaluate|GetAttribute|GetNodeName|GetNodeType|GetNodeValue|GetOwnerDocument|GetUserData|Insert|Locate|LocateNode|Open|Remove|Replace|SetNodeValue|SetUserData|Transform|Validate(Dom)?|Write)|XLATE|XMAP(Close|Create|Open|ReadNext|ToXMLDoc)|XML(Error|Execute|Get(Error|Option(s|Value))|SetOptions|TODB))(?:\()</string>
 						<key>beginCaptures</key>
 						<dict>
 							<key>1</key>
@@ -264,7 +257,7 @@
 						<key>comment</key>
 						<string>Other keywords</string>
 						<key>match</key>
-						<string>\b(ABSOLUTE|(DE)?ACTIVATEKEY|ALL|(FIRST|LAST|NULLVAL)_ALT_KEY|SELECTED|REFERENCED|DEFER_COMMIT|INTO|INTO_REFERENCED|ASSOCIATED|DELETING|NEW|EXISTING|SINGLE|COMMIT(|TING)?|WRITING|DELETING|RELEASING|TESTING|APPEND|AS|ASSIGN|ASYNC|AT|BEFORE|BPIOCP|BPIOCPN|BREAK|BUFFER.KEYS|BY|CALLING|CAPTURING|CHAIN|CLEAR(COM|COMMON|DATA|FILE|INPUT|SELECT|SQL)?|CLOSE(SEQ)?|COM(MON)?|COMPILE\.DICT\.ITEM|CONNECT|CONVERT|CRT|CURRENT|DATA|DEBUG|DECLARE|DEFFUN|DEL(ETE|ETELIST|ETEU)?|DICT|DIM|DIMENSION|DISABLEDEC|DISCONNECT|DISPLAY|DTX|ECHO|EQU|EQUATE|ERROR|FIELDS|FILE(UN)?LOCK|FIND(STR)?|FLUSH|FMTS|FOOTING|FORMLIST|FROM|FUNCTION|GARBAGECOLLECT|GET(COLUMN(DATA|NAME)|(ERR)?MSG|LIST|NEXTTUPLE|X)?|GROUPSTORE|HEADING|HELP|HUSH|IN|INDEXS|INPUT(CLEAR|ERR|IF|NULL|TRAP)|INS|ISOLATION|JRNL_STATUS|KEY|LENGTH|LINEMARK|LIT(ERALLY)?|LOCATE|LOCK(ED)?|MAT(BUILD|PARSE|READ(L|U)?|WRITE(U)?)?|NO(CONVERT|DELAY)|NULL|OFF|ON|OPEN(SEQ)?|OS(CLOSE|DELETE|OPEN|(B)?READ|(B)?WRITE)|PAGE|PASS(COM(MON)?|LIST)|PRECISION|PREVIOUS|PRINT(ER|ERR)?|PRIOR|PROC(READ|WRITE)|PROGRAM|READ(BCK|BCKL|BCKU|FWD|FWDL|FWDU|L|LIST|NEXT|NEXTTUPLE|ONLY|SELECT|SEQ|T|U|V|VL|VU|WRITE|XBCK|XFWD)?|RECORDLOCK(L|U)|RELATIVE|RELEASE|REMOVE|RESIZET|RETURNING|REWIND|RNDSEED|RTNLIST|SELECT(INDEX|INFO)?|SEND(X)?|SET(INDEX|MARK|ROW|TABLE|TING)|STEP|SUBROUTINE|SWAP|SYNC|TIMEOUT|TO|UNFILTERED|UNLOCK|USE|USING|VALIDATE\.KEY|VERB|WAITING|WEOF|WEOFSEQ|WITH|WRITE(LIST|ONLY|SEQ|SEQF|T|U|V|VU)?|XTD)\b</string>
+						<string>\b(?&lt;!\.)(ABSOLUTE|(DE)?ACTIVATEKEY|ALL|(FIRST|LAST|NULLVAL)_ALT_KEY|SELECTED|REFERENCED|DEFER_COMMIT|INTO|INTO_REFERENCED|ASSOCIATED|DELETING|NEW|EXISTING|SINGLE|COMMIT(|TING)?|WRITING|DELETING|RELEASING|TESTING|APPEND|AS|ASSIGN|ASYNC|AT|BEFORE|BPIOCP|BPIOCPN|BREAK|BUFFER.KEYS|BY|CALLING|CAPTURING|CHAIN|CLEAR(COM|COMMON|DATA|FILE|INPUT|SELECT|SQL)?|CLOSE(SEQ)?|COM(MON)?|COMPILE\.DICT\.ITEM|CONNECT|CONVERT|CRT|CURRENT|DATA|DEBUG|DECLARE|DEFFUN|DEL(ETE|ETELIST|ETEU)?|DICT|DIM|DIMENSION|DISABLEDEC|DISCONNECT|DISPLAY|DTX|ECHO|EQU|EQUATE|ERROR|FIELDS|FILE(UN)?LOCK|FIND(STR)?|FLUSH|FMTS|FOOTING|FORMLIST|FROM|FUNCTION|GARBAGECOLLECT|GET(COLUMN(DATA|NAME)|(ERR)?MSG|LIST|NEXTTUPLE|X)?|GROUPSTORE|HEADING|HELP|HUSH|IN|INDEXS|INPUT(CLEAR|ERR|IF|NULL|TRAP)|INS|ISOLATION|JRNL_STATUS|KEY|LENGTH|LINEMARK|LIT(ERALLY)?|LOCATE|LOCK(ED)?|MAT(BUILD|PARSE|READ(L|U)?|WRITE(U)?)?|NO(CONVERT|DELAY)|NULL|OFF|ON|OPEN(SEQ)?|OS(CLOSE|DELETE|OPEN|(B)?READ|(B)?WRITE)|PAGE|PASS(COM(MON)?|LIST)|PRECISION|PREVIOUS|PRINT(ER|ERR)?|PRIOR|PROC(READ|WRITE)|PROGRAM|READ(BCK|BCKL|BCKU|FWD|FWDL|FWDU|L|LIST|NEXT|NEXTTUPLE|ONLY|SELECT|SEQ|T|U|V|VL|VU|WRITE|XBCK|XFWD)?|RECORDLOCK(L|U)|RELATIVE|RELEASE|REMOVE|RESIZET|RETURNING|REWIND|RNDSEED|RTNLIST|SELECT(INDEX|INFO)?|SEND(X)?|SET(INDEX|MARK|ROW|TABLE|TING)|STEP|SUBROUTINE|SWAP|SYNC|TIMEOUT|TO|UNFILTERED|UNLOCK|USE|USING|VALIDATE\.KEY|VERB|WAITING|WEOF|WEOFSEQ|WITH|WRITE(LIST|ONLY|SEQ|SEQF|T|U|V|VU)?|XTD)(?!\.)\b</string>
 						<key>name</key>
 						<string>keyword.other.envisionbasic</string>
 					</dict>
@@ -276,7 +269,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>(;?\s*((REM\s+|\*\s*).*))</string>
+						<string>(?&lt;=;|^)\s*((REM(\s+)|[!*]).*)</string>
 						<key>name</key>
 						<string>comment.line.envisionbasic</string>
 					</dict>
