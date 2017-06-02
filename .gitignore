@@ -1,3 +1,4 @@
 samples/*
 syntaxes/eb.tmLanguage
 node_modules/*
+*.vsix
