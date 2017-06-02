@@ -71,6 +71,16 @@
       "description": "Iterate over values"
    },
 
+   "FOR_ Envision macro": {
+        "prefix": "FOR_",
+        "body": [
+            "FOR_${1:THE} ${2:ID}",
+            "\t${0}",
+            "END_${1:THE} ${2:ID}"
+        ],
+        "description": "Envision macro for database access"
+   },
+
    "Convert input for storage": {
       "prefix": "ICONV",
       "body": [
@@ -83,7 +93,7 @@
       "prefix": "IFELSE",
       "body": [
          "IF ${1:CONDITION} THEN",
-         "\t${2}",
+         "   ${2}",
          "END ELSE",
          "\t${3}",
          "END"
@@ -99,6 +109,16 @@
          "END"
       ],
       "description": "IF statement"
+   },
+
+   "ELSE statement": {
+        "prefix": "ELSE",
+        "body": [
+            "ELSE",
+            "\t${0}",
+            "END"
+        ],
+        "description": "ELSE statement"
    },
 
    "Convert stored value for display": {
