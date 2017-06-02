@@ -41,6 +41,12 @@
         "scopeName": "source.envisionbasic",
         "path": "./syntaxes/eb.tmLanguage"
       }
+    ],
+    "snippets": [
+      {
+        "language": "eb",
+        "path": "./snippets/eb.json"
+      }
     ]
   },
   "devDependencies": {
