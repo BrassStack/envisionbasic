@@ -1,17 +1,17 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "gulp",
-    "isShellCommand": true,
     "args": [
-        "--no-color"
+        "--no-color",
     ],
     "tasks": [
         {
-            "taskName": "build",
+            "label": "build",
+            "type": "shell",
             "args": [],
-            "isBuildCommand": true,
+            "group": "build",
             "problemMatcher": [
                 "$lessCompile",
                 "$tsc",

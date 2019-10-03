@@ -19,13 +19,6 @@ patterns:
     -
         include: '#basicStatements'
 repository:
-    multiValueVariableStatement:
-        patterns:
-            -
-                begin: '\b(?<!\.)([A-Za-z_\.][A-Za-z0-9_\.]*)(<)'
-                end: '(>)'
-                patterns:
-                    - {include: $self}
     labelStatement:
         patterns:
             -
@@ -63,17 +56,16 @@ repository:
     basicStatements:
         patterns:
             -
-                comment: 'Assignment operators (spaces optional)'
-                match: '(\*|/|-|\+|:|<|>)?='
-                name: keyword.operator.envisionbasic
+                comment: 'Some compile-time control flow'
+                match: '\$(BASICTYPE|(UN)?DEFINE|ELSE|ENDIF|IF(N)?DEF|INCLUDE|(INPUT|EDITED|OUTPUT).DATA)'
+                name: keyword.control.envisionbasic
             -
-                comment: 'Arithmetic operators (spaces optional)'
-                match: '(\^|\*(\*)?|/|:|\+|-)'
-                name: keyword.operator.envisionbasic
-            -
-                comment: 'Logic operators (spaces optional)'
-                match: '(!|&|\#(<|>)?|<(=|>)?|>(<|=)?)'
-                name: keyword.operator.envisionbasic
+                comment: 'Inserts'
+                begin: '^(\$|\:)'
+                end: '(\:|$)'
+                name: support.type.envisionbasic
+                patterns:
+                    - {include: $self}
             -
                 comment: 'Logic operators (spaces preferred before and after)'
                 match: '\s(AND|CAT|EQ|GE|GT|LE|LT|MATCH|MATCHES|NE|OR)\s'
@@ -82,10 +74,6 @@ repository:
                 comment: 'Some compile-time constants'
                 match: '(@(A|F|V|S|R|T|SV|I)M|@(TRUE|FALSE|NULL)|\$(T(RUE)?|F(ALSE)?))\b'
                 name: constant.language.envisionbasic
-            -
-                comment: 'Some compile-time control flow'
-                match: '\$(BASICTYPE|(UN)?DEFINE|ELSE|ENDIF|IF(N)?DEF|INCLUDE|INSERT|(INPUT|EDITED|OUTPUT).DATA)'
-                name: keyword.control.envisionbasic
             -
                 comment: 'Control keywords'
                 match: '\b(?<!\.)(ABORT|BEGIN|CALL(C|_SUBR|_PROCESS|_SCREEN)?|CASE|COMMIT|CONTINUE|DO|ELSE|END(_\w+)?|GOSUB|ENTER|(UDT)?EXECUTE|EXECUTESQL|EXIT|FOR(_\w+)?|GO(SUB|TO)?|IF|INCLUDE|INPUT|LOOP|NEXT|PAUSE|(PC|MD)?PERFORM|PROMPT|REPEAT|RETURN|RQM|SHOW[AC]|SLEEP|START|STOP|THEN|TRANSACTION|UNTIL|WAIT|WAKE|WHILE)(?!\.)\b'
@@ -105,6 +93,22 @@ repository:
                 comment: 'Other keywords'
                 match: '\b(?<!\.)(ABSOLUTE|(DE)?ACTIVATEKEY|ALL|(FIRST|LAST|NULLVAL)_ALT_KEY|SELECTED|REFERENCED|DEFER_COMMIT|INTO|INTO_REFERENCED|ASSOCIATED|DELETING|NEW|EXISTING|SINGLE|COMMIT(|TING)?|WRITING|DELETING|RELEASING|TESTING|APPEND|AS|ASSIGN|ASYNC|AT|BEFORE|BPIOCP|BPIOCPN|BREAK|BUFFER.KEYS|BY|CALLING|CAPTURING|CHAIN|CLEAR(COM|COMMON|DATA|FILE|INPUT|SELECT|SQL)?|CLOSE(SEQ)?|COM(MON)?|COMPILE\.DICT\.ITEM|CONNECT|CONVERT|CRT|CURRENT|DATA|DEBUG|DECLARE|DEFFUN|DEL(ETE|ETELIST|ETEU)?|DICT|DIM|DIMENSION|DISABLEDEC|DISCONNECT|DISPLAY|DTX|ECHO|EQU|EQUATE|ERROR|FIELDS|FILE(UN)?LOCK|FIND(STR)?|FLUSH|FMTS|FOOTING|FORMLIST|FROM|FUNCTION|GARBAGECOLLECT|GET(COLUMN(DATA|NAME)|(ERR)?MSG|LIST|NEXTTUPLE|X)?|GROUPSTORE|HEADING|HELP|HUSH|IN|INDEXS|INPUT(CLEAR|ERR|IF|NULL|TRAP)|INS|ISOLATION|JRNL_STATUS|KEY|LENGTH|LINEMARK|LIT(ERALLY)?|LOCATE|LOCK(ED)?|MAT(BUILD|PARSE|READ(L|U)?|WRITE(U)?)?|NO(CONVERT|DELAY)|NULL|OFF|ON|OPEN(SEQ)?|OS(CLOSE|DELETE|OPEN|(B)?READ|(B)?WRITE)|PAGE|PASS(COM(MON)?|LIST)|PRECISION|PREVIOUS|PRINT(ER|ERR)?|PRIOR|PROC(READ|WRITE)|PROGRAM|READ(BCK|BCKL|BCKU|FWD|FWDL|FWDU|L|LIST|NEXT|NEXTTUPLE|ONLY|SELECT|SEQ|T|U|V|VL|VU|WRITE|XBCK|XFWD)?|RECORDLOCK(L|U)|RELATIVE|RELEASE|REMOVE|RESIZET|RETURNING|REWIND|RNDSEED|RTNLIST|SELECT(INDEX|INFO)?|SEND(X)?|SET(INDEX|MARK|ROW|TABLE|TING)|STEP|SUBROUTINE|SWAP|SYNC|TIMEOUT|TO|UNFILTERED|UNLOCK|USE|USING|VALIDATE\.KEY|VERB|WAITING|WEOF|WEOFSEQ|WITH|WRITE(LIST|ONLY|SEQ|SEQF|T|U|V|VU)?|XTD)(?!\.)\b'
                 name: keyword.other.envisionbasic
+            -
+                comment: 'Special Variables (R., V., VL. etc.)'
+                match: '\b((R|V|VL|A|AL)\.[A-Z0-9_\.]*[A-Z0-9]|(INPUT|EDITED|OUTPUT|READ).DATA)|WARNING.OCCURRED|ERROR.OCCURRED|MSG|MSG.ARGS(\b|\[|\<)'
+                name: variable.other.envisionbasic
+            -
+                comment: 'Assignment operators (spaces optional)'
+                match: '(\*|/|-|\+|:|<|>)?='
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Arithmetic operators (spaces optional)'
+                match: '(\^|\*(\*)?|/|:|\+|-)'
+                name: keyword.operator.envisionbasic
+            -
+                comment: 'Logic operators (spaces optional)'
+                match: '(!|&|\#(<|>)?|<(=|>)?|>(<|=)?)'
+                name: keyword.operator.envisionbasic
     comments:
         patterns:
             -
