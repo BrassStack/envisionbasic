@@ -3,7 +3,7 @@
   "displayName": "Envision Basic Language Support",
   "description": "Unibasic language support with Envision extensions by Ellucian",
   "icon": "images/e-go-icon.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "konradwillmert",
   "bugs": {
     "url": "https://github.com/Icebird/envisionbasic/issues"
@@ -17,7 +17,7 @@
     "vscode": "^1.12.0"
   },
   "categories": [
-    "Languages"
+    "Programming Languages"
   ],
   "contributes": {
     "languages": [
